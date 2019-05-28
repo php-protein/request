@@ -1,0 +1,24 @@
+{
+    "name": "protein/request",
+    "description": "Handles the HTTP request for the current execution",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefano Azzolini",
+            "email": "lastguest@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "Protein/filter": "^1.0.0",
+        "Protein/url": "^1.0.0",
+        "Protein/negotiation": "^1.0.0",
+        "Protein/structure": "^1.0.0"
+    },
+    "autoload": {
+        "PSR-4": {
+            "Protein\\": "src/"
+        }
+    }
+}
