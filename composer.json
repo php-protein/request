@@ -11,10 +11,10 @@
     ],
     "require": {
         "php": "^7.2",
-        "protein/filter": "^1.0.0",
-        "protein/url": "^1.0.0",
-        "protein/negotiation": "^1.0.0",
-        "protein/structure": "^1.0.0"
+        "proteins/filter": "^1.0.0",
+        "proteins/url": "^1.0.0",
+        "proteins/negotiation": "^1.0.0",
+        "proteins/structure": "^1.0.0"
     },
     "autoload": {
         "psr-4": {
