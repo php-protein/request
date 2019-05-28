@@ -5,11 +5,11 @@
  *
  * Handles the HTTP request for the current execution.
  *
- * @package Protein
+ * @package Proteins
  * @author  "Stefano Azzolini"  <lastguest@gmail.com>
  */
 
-namespace Protein;
+namespace Proteins;
 
 class Request {
     use Filters;

@@ -1,5 +1,5 @@
 {
-    "name": "protein/request",
+    "name": "proteins/request",
     "description": "Handles the HTTP request for the current execution",
     "type": "library",
     "license": "MIT",
@@ -11,14 +11,14 @@
     ],
     "require": {
         "php": "^7.2",
-        "Protein/filter": "^1.0.0",
-        "Protein/url": "^1.0.0",
-        "Protein/negotiation": "^1.0.0",
-        "Protein/structure": "^1.0.0"
+        "protein/filter": "^1.0.0",
+        "protein/url": "^1.0.0",
+        "protein/negotiation": "^1.0.0",
+        "protein/structure": "^1.0.0"
     },
     "autoload": {
-        "PSR-4": {
-            "Protein\\": "src/"
+        "psr-4": {
+            "Proteins\\": "src/"
         }
     }
 }

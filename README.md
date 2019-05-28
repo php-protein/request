@@ -8,13 +8,13 @@
 ---
 
 ```
-composer require protein/request
+composer require proteins/request
 ```
 
 Require the class via :
 
 ```php
-use Protein\Request;
+use Proteins\Request;
 ```
 
 ### Getting an input parameter
