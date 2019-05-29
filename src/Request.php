@@ -56,7 +56,7 @@ class Request {
         return $key ? (
         isset($_REQUEST[$key])
              ? new Structure($_REQUEST[$key])
-             : (is_callable($default) ? call_user_func($default) : $default)
+             : (\is_callable($default) ? \call_user_func($default) : $default)
            ) : new Structure($_REQUEST[$key]);
     }
 
@@ -71,8 +71,8 @@ class Request {
      */
     public static function env($key=null, $default=null) {
         return $key ? (
-        filter_input(INPUT_ENV, $key)
-              ?: (is_callable($default) ? call_user_func($default) : $default)
+        \filter_input(INPUT_ENV, $key)
+              ?: (\is_callable($default) ? \call_user_func($default) : $default)
            ) : $_ENV;
     }
 
@@ -87,7 +87,7 @@ class Request {
      */
     public static function server($key=null, $default=null) {
         return $key ? (
-        $_SERVER[$key] ?? (is_callable($default) ? call_user_func($default) : $default)
+        $_SERVER[$key] ?? (\is_callable($default) ? \call_user_func($default) : $default)
             ) : $_SERVER;
     }
 
@@ -102,8 +102,8 @@ class Request {
      */
     public static function post($key=null, $default=null) {
         return $key ? (
-        filter_input(INPUT_POST, $key)
-              ?: (is_callable($default) ? call_user_func($default) : $default)
+        \filter_input(INPUT_POST, $key)
+              ?: (\is_callable($default) ? \call_user_func($default) : $default)
            ) : $_POST;
     }
 
@@ -118,8 +118,8 @@ class Request {
      */
     public static function get($key=null, $default=null) {
         return $key ? (
-        filter_input(INPUT_GET, $key)
-              ?: (is_callable($default) ? call_user_func($default) : $default)
+        \filter_input(INPUT_GET, $key)
+              ?: (\is_callable($default) ? \call_user_func($default) : $default)
            ) : $_GET;
     }
 
@@ -134,7 +134,7 @@ class Request {
      */
     public static function files($key=null, $default=null) {
         return $key ? (
-        $_FILES[$key] ?? (is_callable($default) ? call_user_func($default) : $default)
+        $_FILES[$key] ?? (\is_callable($default) ? \call_user_func($default) : $default)
            ) : $_FILES;
     }
 
@@ -149,8 +149,8 @@ class Request {
      */
     public static function cookie($key=null, $default=null) {
         return $key ? (
-            filter_input(INPUT_COOKIE, $key)
-              ?: (is_callable($default) ? call_user_func($default) : $default)
+            \filter_input(INPUT_COOKIE, $key)
+              ?: (\is_callable($default) ? \call_user_func($default) : $default)
            ) : $_COOKIE;
     }
 
@@ -167,12 +167,12 @@ class Request {
             ?? 'localhost';
         // HTTP_X_FORWARDED_HOST can contain multiple comma-separated proxy hops,
         // we only need the last one
-        if (strpos($host, ',')!==false) {
-            $host = trim(substr(strrchr($host, ','), 1)) ?: $host;
+        if (\strpos($host, ',')!==false) {
+            $host = \trim(\substr(\strrchr($host, ','), 1)) ?: $host;
         }
 
         // Host can contain the port info "host:port"
-        $host = explode(':', $host, 2);
+        $host = \explode(':', $host, 2);
 
         $port = (int)($host[1] ?? $_SERVER['SERVER_PORT'] ?? 80);
 
@@ -189,7 +189,7 @@ class Request {
      */
     public static function protocol() {
         // ("{$_SERVER['HTTPS']}" !=='off' ? 's' : '')
-        return 'http' . (!empty($_SERVER['HTTPS']) && (strtolower((string)$_SERVER['HTTPS'])!=='off') ? 's' : '');
+        return 'http' . (!empty($_SERVER['HTTPS']) && (\strtolower((string)$_SERVER['HTTPS'])!=='off') ? 's' : '');
     }
 
     /**
@@ -211,10 +211,10 @@ class Request {
      * @return Structure The returned value or null.
      */
     public static function header($key=null, $default=null) {
-        $key = 'HTTP_'.strtr(strtoupper($key), '-', '_');
+        $key = 'HTTP_' . \strtr(strtoupper($key), '-', '_');
         return $key ? (
         $_SERVER[$key]
-              ?? (is_callable($default) ? call_user_func($default) : $default)
+              ?? (\is_callable($default) ? \call_user_func($default) : $default)
            ) : $_SERVER;
     }
 
@@ -228,7 +228,7 @@ class Request {
                 ?? $_SERVER['ORIG_PATH_INFO']
                 ?? $_SERVER['PATH_INFO']
                 ?? '/';
-        $uri = rtrim(strtok($serv_uri, '?'), '/') ?: '/';
+        $uri = \rtrim(strtok($serv_uri, '?'), '/') ?: '/';
         return static::filterWith('URI', $uri);
     }
 
@@ -238,7 +238,7 @@ class Request {
      * @return string
      */
     public static function baseURI() {
-        $dir = dirname($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '') ?? '/';
+        $dir = \dirname($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '') ?? '/';
         // In CLI mode, $dir sometimes is equal to current directory : "."
         return  $dir == '.' ? '/' : $dir;
     }
@@ -249,7 +249,7 @@ class Request {
      * @return string
      */
     public static function method() {
-        return static::filterWith('method', strtolower($_SERVER['REQUEST_METHOD'] ?? 'get'));
+        return static::filterWith('method', \strtolower($_SERVER['REQUEST_METHOD'] ?? 'get'));
     }
 
     /**
@@ -266,8 +266,8 @@ class Request {
 
         // HTTP_X_FORWARDED_FOR / _HOST can contain multiple comma-separated proxy hops,
         // we only need the last one
-        if (strpos($ip, ',') !== false) {
-            $ip = trim(substr(strrchr($ip, ','), 1)) ?: $ip;
+        if (\strpos($ip, ',') !== false) {
+            $ip = \trim(\substr(\strrchr($ip, ','), 1)) ?: $ip;
         }
 
         return static::filterWith('IP', $ip);
@@ -279,7 +279,7 @@ class Request {
      * @return string
      */
     public static function UA() {
-        return static::filterWith('UA', strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''));
+        return static::filterWith('UA', \strtolower($_SERVER['HTTP_USER_AGENT'] ?? ''));
     }
 
     /**
@@ -295,20 +295,20 @@ class Request {
         // Check if we must retrieve the input data...
         if (null === static::$body) {
             // Check if content type is */json
-            if ((false !== stripos($_SERVER['HTTP_CONTENT_TYPE'] ?? '', 'json'))
-           || (false !== stripos($_SERVER['CONTENT_TYPE'] ?? '', 'json'))) {
+            if ((false !== \stripos($_SERVER['HTTP_CONTENT_TYPE'] ?? '', 'json'))
+           || (false !== \stripos($_SERVER['CONTENT_TYPE'] ?? '', 'json'))) {
                 // Automatically decode input json
-                static::$body = json_decode(file_get_contents("php://input"));
+                static::$body = \json_decode(\file_get_contents("php://input"));
             } else {
                 if (empty($_POST)) {
-                    static::$body = file_get_contents("php://input");
+                    static::$body = \file_get_contents("php://input");
                 } else {
                     static::$body = (object)$_POST;
                 }
             }
         }
         return $key
-          ? (static::$body->$key ?? (is_callable($default) ? call_user_func($default) : $default))
+          ? (static::$body->$key ?? (\is_callable($default) ? \call_user_func($default) : $default))
           : static::$body;
     }
 }
